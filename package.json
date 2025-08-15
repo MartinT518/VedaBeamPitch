@@ -1,1 +1,39 @@
-{"status":500,"name":"Error","message":"Input buffer contains unsupported image format"}
+{
+  "name": "vedabeam-pitch-onepager",
+  "version": "1.0.0",
+  "description": "VedaBeam - The First Behavioral Intelligence Engine for High Performers",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo 'No build step required'",
+    "test": "echo 'No tests specified' && exit 0"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "helmet": "^7.0.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "express-validator": "^7.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [
+    "vedabeam",
+    "behavioral-intelligence",
+    "health-optimization",
+    "ai",
+    "landing-page",
+    "high-performers"
+  ],
+  "author": "VedaBeam Team <hello@vedabeam.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vedabeam/pitch-onepager"
+  },
+  "homepage": "https://vedabeam.com"
+}
+
