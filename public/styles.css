@@ -31,6 +31,16 @@ body {
 .hero-content {
     max-width: 800px;
     z-index: 2;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.cta-button, .email-input, .name-input {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .logo {

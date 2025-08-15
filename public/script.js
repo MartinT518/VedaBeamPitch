@@ -72,9 +72,24 @@ document.addEventListener('DOMContentLoaded', function() {
     function setFormLoading(loading) {
         submitButton.disabled = loading;
         submitButton.textContent = loading ? 'Joining...' : 'Join Waitlist';
+        submitButton.style.opacity = loading ? '0.7' : '1';
+        submitButton.style.cursor = loading ? 'not-allowed' : 'pointer';
         emailInput.disabled = loading;
         nameInput.disabled = loading;
     }
+    
+    // Auto-focus name input after valid email
+    emailInput.addEventListener('blur', function() {
+        const email = this.value.trim();
+        if (email && isValidEmail(email)) {
+            this.style.borderColor = '#10B981';
+            setTimeout(() => nameInput.focus(), 100);
+        } else if (email) {
+            this.style.borderColor = '#EF4444';
+        } else {
+            this.style.borderColor = '#E2E8F0';
+        }
+    });
     
     // Track waitlist signups (for analytics)
     function trackWaitlistSignup(email, name) {
@@ -91,18 +106,12 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Waitlist signup tracked:', { email, name, timestamp: new Date().toISOString() });
     }
     
-    // Real-time email validation feedback
-    emailInput.addEventListener('blur', function() {
-        const email = this.value.trim();
-        if (email && !isValidEmail(email)) {
-            this.style.borderColor = '#EF4444';
-        } else {
-            this.style.borderColor = '#E2E8F0';
-        }
-    });
-    
     // Reset border color on focus
     emailInput.addEventListener('focus', function() {
+        this.style.borderColor = '#4C1D95';
+    });
+    
+    nameInput.addEventListener('focus', function() {
         this.style.borderColor = '#4C1D95';
     });
     
