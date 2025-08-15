@@ -105,6 +105,12 @@ nano .env
 
 ### **Testing**
 ```bash
+# Run comprehensive test suite
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
 # Test server locally
 curl http://localhost:3000/health
 
@@ -112,6 +118,14 @@ curl http://localhost:3000/health
 curl -X POST http://localhost:3000/api/waitlist \
   -H "Content-Type: application/json" \
   -d '{"email":"test@example.com"}'
+
+# Test rate limiting (should fail after 5 requests)
+for i in {1..6}; do
+  curl -X POST http://localhost:3000/api/waitlist \
+    -H "Content-Type: application/json" \
+    -d "{\"email\":\"test$i@example.com\"}"
+  echo ""
+done
 ```
 
 ---
@@ -153,8 +167,10 @@ railway logs --follow
 - ✅ **Certificate Management** - Auto-renewal
 
 ### **Data Protection**
-- ✅ **Input Validation** - Express-validator
-- ✅ **Email Sanitization** - Normalized emails
+- ✅ **Input Validation** - Express-validator with enhanced validation
+- ✅ **Email Sanitization** - Normalized emails with length/format checks
+- ✅ **Rate Limiting** - Express-rate-limit protection
+- ✅ **Request ID Tracking** - UUID-based correlation
 - ✅ **Request Logging** - Comprehensive logging
 
 ---

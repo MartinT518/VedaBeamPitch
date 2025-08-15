@@ -3,6 +3,8 @@ const path = require('path');
 const compression = require('compression');
 const helmet = require('helmet');
 const cors = require('cors');
+const rateLimit = require('express-rate-limit');
+const { v4: uuidv4 } = require('uuid');
 const { body, validationResult } = require('express-validator');
 
 const app = express();
@@ -12,14 +14,14 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 // Trust proxy for Railway
 app.set('trust proxy', 1);
 
-// Security middleware with proper CSP for external resources
+// Security middleware with improved CSP (keeping unsafe-inline for now due to Tailwind CDN)
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
       styleSrc: [
         "'self'", 
-        "'unsafe-inline'", 
+        "'unsafe-inline'", // Required for Tailwind CDN
         "https://fonts.googleapis.com", 
         "https://cdn.tailwindcss.com"
       ],
@@ -29,7 +31,7 @@ app.use(helmet({
       ],
       scriptSrc: [
         "'self'", 
-        "'unsafe-inline'", 
+        "'unsafe-inline'", // Required for Tailwind CDN
         "https://cdn.tailwindcss.com"
       ],
       imgSrc: [
@@ -70,6 +72,13 @@ app.use(cors({
   credentials: true
 }));
 
+// Request ID tracking middleware
+app.use((req, res, next) => {
+  req.id = uuidv4();
+  res.setHeader('X-Request-ID', req.id);
+  next();
+});
+
 // Request parsing middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
@@ -88,12 +97,27 @@ app.use((req, res, next) => {
   next();
 });
 
+// Rate limiting for waitlist endpoint
+const waitlistLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // limit each IP to 5 requests per windowMs
+  message: {
+    success: false,
+    message: 'Too many signup attempts, please try again later.'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 // Waitlist endpoint with comprehensive validation
 app.post('/api/waitlist',
-  // Input validation
+  waitlistLimiter,
+  // Enhanced input validation
   body('email')
     .isEmail()
     .normalizeEmail()
+    .isLength({ min: 5, max: 254 })
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)
     .withMessage('Please enter a valid email address'),
   
   async (req, res) => {
