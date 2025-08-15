@@ -1,98 +1,94 @@
-// VedaBeam Landing Page JavaScript
-document.addEventListener('DOMContentLoaded', function() {
+// JavaScript for animations and form submission
+document.addEventListener('DOMContentLoaded', () => {
+    // Scroll Animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.scroll-animate').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Waitlist Form Submission
     const form = document.getElementById('waitlist-form');
     const emailInput = document.getElementById('email-input');
-    const nameInput = document.getElementById('name-input');
-    const submitButton = form.querySelector('.cta-button');
     const messageDiv = document.getElementById('form-message');
+    const submitButton = form.querySelector('button');
 
-    // Form submission handler
-    form.addEventListener('submit', async function(e) {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         const email = emailInput.value.trim();
-        const name = nameInput.value.trim();
         
-        // Basic email validation
+        if (!email) {
+            showMessage('Please enter your email address.', 'error');
+            return;
+        }
+
         if (!isValidEmail(email)) {
             showMessage('Please enter a valid email address.', 'error');
             return;
         }
-        
-        // Disable form during submission
-        setFormLoading(true);
-        
+
+        // Show loading state
+        const originalText = submitButton.textContent;
+        submitButton.textContent = 'Joining...';
+        submitButton.disabled = true;
+
         try {
             const response = await fetch('/api/waitlist', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, name })
+                body: JSON.stringify({ email }),
             });
-            
+
             const data = await response.json();
-            
-            if (response.ok && data.success) {
-                showMessage(data.message || 'Thank you for joining the VedaBeam waitlist! We\'ll be in touch soon.', 'success');
-                form.reset();
+
+            if (response.ok) {
+                showMessage('🎉 Welcome to VedaBeam! Check your email for confirmation.', 'success');
+                emailInput.value = '';
                 
                 // Track successful signup
-                trackWaitlistSignup(email, name);
+                trackWaitlistSignup(email);
             } else {
                 showMessage(data.message || 'Something went wrong. Please try again.', 'error');
             }
         } catch (error) {
-            console.error('Waitlist signup error:', error);
+            console.error('Form submission error:', error);
             showMessage('Network error. Please check your connection and try again.', 'error');
         } finally {
-            setFormLoading(false);
+            // Reset button state
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
         }
     });
-    
-    // Email validation
+
+    function showMessage(message, type) {
+        messageDiv.textContent = message;
+        messageDiv.className = `mt-4 text-lg font-medium ${
+            type === 'success' ? 'text-green-600' : 'text-red-600'
+        }`;
+        
+        // Auto-hide message after 5 seconds
+        setTimeout(() => {
+            messageDiv.textContent = '';
+            messageDiv.className = 'mt-4 text-lg font-medium';
+        }, 5000);
+    }
+
     function isValidEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     }
-    
-    // Show success/error messages
-    function showMessage(message, type) {
-        messageDiv.textContent = message;
-        messageDiv.className = `form-message ${type}`;
-        messageDiv.style.display = 'block';
-        
-        // Hide message after 5 seconds
-        setTimeout(() => {
-            messageDiv.style.display = 'none';
-        }, 5000);
-    }
-    
-    // Set form loading state
-    function setFormLoading(loading) {
-        submitButton.disabled = loading;
-        submitButton.textContent = loading ? 'Joining...' : 'Join Waitlist';
-        submitButton.style.opacity = loading ? '0.7' : '1';
-        submitButton.style.cursor = loading ? 'not-allowed' : 'pointer';
-        emailInput.disabled = loading;
-        nameInput.disabled = loading;
-    }
-    
-    // Auto-focus name input after valid email
-    emailInput.addEventListener('blur', function() {
-        const email = this.value.trim();
-        if (email && isValidEmail(email)) {
-            this.style.borderColor = '#10B981';
-            setTimeout(() => nameInput.focus(), 100);
-        } else if (email) {
-            this.style.borderColor = '#EF4444';
-        } else {
-            this.style.borderColor = '#E2E8F0';
-        }
-    });
-    
+
     // Track waitlist signups (for analytics)
-    function trackWaitlistSignup(email, name) {
+    function trackWaitlistSignup(email) {
         // Google Analytics tracking
         if (typeof gtag !== 'undefined') {
             gtag('event', 'waitlist_signup', {
@@ -103,19 +99,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Console log for development
-        console.log('Waitlist signup tracked:', { email, name, timestamp: new Date().toISOString() });
+        console.log('Waitlist signup tracked:', { email, timestamp: new Date().toISOString() });
     }
-    
-    // Reset border color on focus
-    emailInput.addEventListener('focus', function() {
-        this.style.borderColor = '#4C1D95';
-    });
-    
-    nameInput.addEventListener('focus', function() {
-        this.style.borderColor = '#4C1D95';
-    });
-    
-    // Smooth scrolling for any anchor links
+
+    // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -128,28 +115,34 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
-    // Add loading animation to floating elements
-    const floatingElements = document.querySelector('.floating-elements');
-    if (floatingElements) {
-        // Add more floating elements dynamically
-        for (let i = 0; i < 3; i++) {
-            const element = document.createElement('div');
-            element.className = 'floating-element';
-            element.style.cssText = `
-                position: absolute;
-                width: ${Math.random() * 100 + 50}px;
-                height: ${Math.random() * 100 + 50}px;
-                background: rgba(255, 255, 255, 0.05);
-                border-radius: 50%;
-                top: ${Math.random() * 80}%;
-                left: ${Math.random() * 80}%;
-                animation: float ${Math.random() * 4 + 4}s ease-in-out infinite;
-                animation-delay: ${Math.random() * 2}s;
-            `;
-            floatingElements.appendChild(element);
+
+    // Add interactive effects to logo containers
+    const logoContainers = document.querySelectorAll('.logo-container');
+    logoContainers.forEach(container => {
+        container.addEventListener('mouseenter', () => {
+            container.style.transform = 'translateY(-2px) scale(1.05)';
+        });
+        
+        container.addEventListener('mouseleave', () => {
+            container.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+
+    // Email input validation styling
+    emailInput.addEventListener('blur', function() {
+        const email = this.value.trim();
+        if (email && isValidEmail(email)) {
+            this.style.borderColor = '#10B981';
+        } else if (email) {
+            this.style.borderColor = '#EF4444';
+        } else {
+            this.style.borderColor = '#E5E7EB';
         }
-    }
+    });
+
+    emailInput.addEventListener('focus', function() {
+        this.style.borderColor = '#4F46E5';
+    });
 });
 
 // Service Worker registration for PWA capabilities (future enhancement)

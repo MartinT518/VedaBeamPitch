@@ -4,194 +4,260 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VedaBeam - Stop Tracking Data. Start Making Decisions.</title>
-    <meta name="description" content="The first behavioral intelligence engine for high performers. Transform complex health data into single, clear, prioritized actions. Eliminate decision fatigue with explainable AI.">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="VedaBeam is the first behavioral intelligence engine for high performers. We transform overwhelming health data into a single, clear, prioritized action for your day.">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://vedabeam.com/">
+
+    <!-- Open Graph / Social Media Meta Tags -->
     <meta property="og:title" content="VedaBeam - Stop Tracking Data. Start Making Decisions.">
-    <meta property="og:description" content="The first behavioral intelligence engine for high performers. Transform complex health data into single, clear, prioritized actions.">
-    <meta property="og:image" content="https://vedabeam.com/assets/og-image.png">
-
-    <!-- Twitter -->
+    <meta property="og:description" content="The first behavioral intelligence engine for high performers. We transform overwhelming health data into a single, clear, prioritized action for your day.">
+    <meta property="og:image" content="assets/og-image.png">
+    <meta property="og:url" content="https://vedabeam.com">
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://vedabeam.com/">
-    <meta property="twitter:title" content="VedaBeam - Stop Tracking Data. Start Making Decisions.">
-    <meta property="twitter:description" content="The first behavioral intelligence engine for high performers. Transform complex health data into single, clear, prioritized actions.">
-    <meta property="twitter:image" content="https://vedabeam.com/assets/og-image.png">
-    
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-background">
-            <div class="floating-elements">
-                <div class="floating-particle"></div>
-                <div class="floating-particle"></div>
-                <div class="floating-particle"></div>
-                <div class="floating-particle"></div>
-                <div class="floating-particle"></div>
-            </div>
-        </div>
-        
-        <div class="container">
-            <div class="hero-content">
-                <!-- Logo with glassmorphism container -->
-                <div class="logo-container">
-                    <div class="logo-glass-frame">
-                        <img src="assets/vedabeam-logo-original.png" alt="VedaBeam Logo" class="logo">
-                    </div>
-                </div>
-                
-                <div class="status-badge">
-                    <span class="status-dot"></span>
-                    Coming Soon • Pre-Launch
-                </div>
-                
-                <h1 class="hero-title">Stop Tracking Data.<br>Start Making Decisions.</h1>
-                <p class="hero-tagline">The First Behavioral Intelligence Engine for High Performers</p>
-                
-                <div class="problem-statement glass-card">
-                    <div class="problem-icon">⚡</div>
-                    <div class="problem-text">
-                        <strong>Your Oura ring tells you you're recovered. Your Garmin says you're ready to train. Your calendar says you have back-to-back meetings.</strong><br><br>
-                        What is the single most effective action you can take right now to optimize your health and performance?
-                    </div>
-                </div>
-                
-                <p class="solution-highlight">
-                    VedaBeam eliminates decision fatigue. We are the intelligence layer that transforms your complex health data into a single, clear, prioritized action for your day.
-                </p>
 
-                <!-- Waitlist Section with glassmorphism -->
-                <div class="waitlist-section glass-card">
-                    <h2>Join the VedaBeam Mission</h2>
-                    <p class="waitlist-subtitle">Be among the first to experience behavioral intelligence that actually works.</p>
-                    
-                    <form class="waitlist-form" id="waitlistForm">
-                        <div class="input-group">
-                            <input type="email" class="email-input glass-input" placeholder="Enter your email" required id="emailInput">
-                            <label class="input-label">Email Address</label>
+    <style>
+        /* Custom styles for typography, animations, and layout */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #F5F3FF 0%, #DEE2FF 100%);
+        }
+        .cta-gradient {
+            background: linear-gradient(90deg, #6D28D9 0%, #4F46E5 100%);
+        }
+        .teal-gradient {
+            background: linear-gradient(135deg, #F0FDFA 0%, #CCFBF1 100%);
+        }
+        .section-divider {
+            clip-path: polygon(0 0, 100% 10%, 100% 100%, 0 90%);
+        }
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .logo-container {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .logo-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+        .vedabeam-logo {
+            max-width: 120px;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="logo-container">
+                    <img src="assets/vedabeam-logo-original.png" alt="VedaBeam Logo" class="vedabeam-logo">
+                </div>
+                <span class="text-xl font-bold text-gray-900">VedaBeam</span>
+            </div>
+            <a href="#waitlist" class="cta-gradient text-white font-semibold px-5 py-2.5 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-300">
+                Join Waitlist
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="pt-24">
+        <section class="hero-gradient">
+            <div class="container mx-auto px-6 py-20 md:py-32 text-center">
+                <div class="bg-teal-100 text-teal-800 text-sm font-bold px-4 py-1.5 rounded-full inline-block mb-4">
+                    Launching in 90 Days • Pre-Launch
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6 scroll-animate">
+                    Stop Tracking Data.<br>Start Making Decisions.
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-10 scroll-animate" style="transition-delay: 150ms;">
+                    VedaBeam is the first behavioral intelligence engine for high performers. We transform overwhelming health data into a single, clear, prioritized action for your day.
+                </p>
+                <div class="scroll-animate" style="transition-delay: 300ms;">
+                    <a href="#waitlist" class="cta-gradient text-white font-bold text-lg px-8 py-4 rounded-xl shadow-2xl hover:scale-105 hover:shadow-indigo-400/50 transition-all duration-300 inline-block">
+                        Get Early Access
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem vs Solution Section -->
+        <section class="py-20 md:py-32">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 scroll-animate">The Problem: Data Overwhelm is Killing Your Progress</h2>
+                    <p class="text-lg text-gray-600 mt-4 max-w-2xl mx-auto scroll-animate" style="transition-delay: 150ms;">
+                        Your wearables give you data. We give you direction.
+                    </p>
+                </div>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 scroll-animate" style="transition-delay: 300ms;">
+                    <!-- Before -->
+                    <div class="w-full md:w-1/2 max-w-sm">
+                        <div class="bg-gray-100 p-4 rounded-2xl shadow-md">
+                            <h3 class="font-bold text-center text-lg mb-4 text-red-600">DATA OVERWHELM</h3>
+                            <div class="bg-red-50 rounded-lg p-8 text-center">
+                                <div class="text-4xl mb-4">📊📱⌚</div>
+                                <p class="text-sm text-gray-600">Multiple apps, endless metrics, no clear action</p>
+                            </div>
                         </div>
-                        <div class="input-group">
-                            <input type="text" class="name-input glass-input" placeholder="Enter your name" required id="nameInput">
-                            <label class="input-label">Full Name</label>
+                    </div>
+                    <div class="text-4xl font-bold text-gray-300 my-4 md:my-0">VS.</div>
+                    <!-- After -->
+                    <div class="w-full md:w-1/2 max-w-sm">
+                        <div class="bg-indigo-100 p-4 rounded-2xl shadow-lg">
+                            <h3 class="font-bold text-center text-lg mb-4 text-indigo-800">ACTIONABLE CLARITY</h3>
+                            <div class="bg-indigo-50 rounded-lg p-8 text-center">
+                                <div class="text-4xl mb-4">🎯</div>
+                                <p class="text-sm text-gray-600">One clear action, scientifically prioritized</p>
+                            </div>
                         </div>
-                        <button type="submit" class="cta-button glass-button">
-                            <span class="button-text">Join Waitlist</span>
-                            <div class="button-shine"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Benefits Section -->
+        <section class="teal-gradient section-divider py-24 md:py-40">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-16 scroll-animate">More Than an App—It's Your Intelligence Engine</h2>
+                <div class="grid md:grid-cols-3 gap-10">
+                    <div class="scroll-animate" style="transition-delay: 150ms;">
+                        <div class="bg-white/60 p-8 rounded-2xl shadow-lg h-full">
+                            <div class="bg-teal-500 text-white h-16 w-16 rounded-full flex items-center justify-center mx-auto mb-6 shadow-md">
+                                <!-- Icon for Goal Achievement -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">Achieve Your Goals, Not Just Track Metrics</h3>
+                            <p class="text-gray-600">We deliver 1-3 prioritized actions scientifically designed to move you toward your specific goals—peak performance, stress resilience, or longevity.</p>
+                        </div>
+                    </div>
+                    <div class="scroll-animate" style="transition-delay: 300ms;">
+                        <div class="bg-white/60 p-8 rounded-2xl shadow-lg h-full">
+                            <div class="bg-teal-500 text-white h-16 w-16 rounded-full flex items-center justify-center mx-auto mb-6 shadow-md">
+                                <!-- Icon for Trust/Transparency -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 20.944a11.955 11.955 0 0118 0z" /></svg>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">Build Trust Through Radical Transparency</h3>
+                            <p class="text-gray-600">Our Explainable AI doesn't just give you a recommendation; it teaches you the "why." You'll build your own health intelligence for life.</p>
+                        </div>
+                    </div>
+                    <div class="scroll-animate" style="transition-delay: 450ms;">
+                        <div class="bg-white/60 p-8 rounded-2xl shadow-lg h-full">
+                            <div class="bg-teal-500 text-white h-16 w-16 rounded-full flex items-center justify-center mx-auto mb-6 shadow-md">
+                                <!-- Icon for Mental Energy -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">Reclaim Your Mental Energy</h3>
+                            <p class="text-gray-600">Stop wasting willpower on analysis paralysis. We eliminate the overwhelm of health optimization, giving you the clarity and confidence to act.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Unfair Advantage Section -->
+        <section class="py-20 md:py-32">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 scroll-animate">Our Moat Isn't Technology—It's Trust.</h2>
+                <p class="text-lg text-gray-600 mt-4 max-w-3xl mx-auto scroll-animate" style="transition-delay: 150ms;">
+                    Other health apps are data companies. <strong>We are a behavioral science company.</strong> Our unfair advantage is a proprietary framework that integrates three crucial layers to build a platform you can trust.
+                </p>
+                <div class="mt-16 max-w-4xl mx-auto space-y-8 scroll-animate" style="transition-delay: 300ms;">
+                    <!-- Advantage 1 -->
+                    <div class="flex items-start space-x-6 text-left">
+                        <div class="flex-shrink-0 bg-indigo-500 text-white h-12 w-12 rounded-full flex items-center justify-center text-xl font-bold">1</div>
+                        <div>
+                            <h3 class="text-xl font-bold">Deep Data Synthesis</h3>
+                            <p class="text-gray-600 mt-1">We analyze signals from all your wearables and data sources to see the full picture of your health.</p>
+                        </div>
+                    </div>
+                    <!-- Advantage 2 -->
+                    <div class="flex items-start space-x-6 text-left">
+                        <div class="flex-shrink-0 bg-indigo-500 text-white h-12 w-12 rounded-full flex items-center justify-center text-xl font-bold">2</div>
+                        <div>
+                            <h3 class="text-xl font-bold">Behavioral Science Models</h3>
+                            <p class="text-gray-600 mt-1">We apply proven principles of behavior change to craft recommendations you'll actually follow.</p>
+                        </div>
+                    </div>
+                    <!-- Advantage 3 -->
+                    <div class="flex items-start space-x-6 text-left">
+                        <div class="flex-shrink-0 bg-indigo-500 text-white h-12 w-12 rounded-full flex items-center justify-center text-xl font-bold">3</div>
+                        <div>
+                            <h3 class="text-xl font-bold">Explainable AI (XAI)</h3>
+                            <p class="text-gray-600 mt-1">We provide the reasoning behind every insight, building a foundation of trust that no "black box" algorithm can replicate.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Waitlist CTA Section -->
+        <section id="waitlist" class="hero-gradient py-20 md:py-32">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-gray-900 scroll-animate">Join the VedaBeam Mission</h2>
+                <p class="text-xl text-gray-600 mt-4 max-w-2xl mx-auto scroll-animate" style="transition-delay: 150ms;">
+                    Be among the first to experience health optimization that actually works. Get early access and help shape the future of behavioral intelligence.
+                </p>
+                <div class="mt-12 max-w-lg mx-auto scroll-animate" style="transition-delay: 300ms;">
+                    <form id="waitlist-form" class="space-y-4">
+                        <input type="email" id="email-input" placeholder="Enter your email for early access" required class="w-full px-6 py-4 text-lg text-gray-800 bg-white border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-indigo-300 focus:border-indigo-500 transition-all outline-none">
+                        <button type="submit" class="w-full cta-gradient text-white font-bold text-lg px-8 py-4 rounded-xl shadow-2xl hover:scale-105 hover:shadow-indigo-400/50 transition-all duration-300">
+                            Get My Invite
                         </button>
                     </form>
-                    
-                    <div class="form-message" id="formMessage"></div>
+                    <div id="form-message" class="mt-4 text-lg font-medium"></div>
+                    <p class="text-sm text-gray-500 mt-4">No spam. Unsubscribe anytime. Early access members get exclusive beta features.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Benefits Section -->
-    <section class="benefits-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Why High Performers Choose VedaBeam</h2>
-                <div class="section-divider"></div>
-            </div>
-            
-            <div class="benefits-grid">
-                <div class="benefit-card glass-card">
-                    <div class="benefit-icon">🎯</div>
-                    <h3>Achieve Your Goals, Not Just Track Your Metrics</h3>
-                    <p>We deliver 1-3 prioritized actions that are scientifically designed to move you toward your specific goals, whether that's peak performance, stress resilience, or longevity.</p>
-                    <div class="benefit-glow"></div>
-                </div>
-                
-                <div class="benefit-card glass-card">
-                    <div class="benefit-icon">🧠</div>
-                    <h3>Build Trust Through Radical Transparency</h3>
-                    <p>Our Explainable AI doesn't just give you a recommendation; it teaches you the "why." You'll build your own health intelligence, empowering you to make better decisions for life.</p>
-                    <div class="benefit-glow"></div>
-                </div>
-                
-                <div class="benefit-card glass-card">
-                    <div class="benefit-icon">⚡</div>
-                    <h3>Reclaim Your Mental Energy</h3>
-                    <p>Stop wasting willpower on analysis paralysis. We eliminate the overwhelm of health optimization, giving you the clarity and confidence to act.</p>
-                    <div class="benefit-glow"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Social Proof Section -->
-    <section class="social-proof-section">
-        <div class="container">
-            <div class="social-proof-card glass-card">
-                <div class="launch-badge">
-                    <span class="badge-icon">🚀</span>
-                    <span class="badge-text">Launching in 90 Days</span>
-                </div>
-                <p class="social-proof-text">Built with a proprietary behavioral science framework and explainable AI engine designed specifically for high-performing individuals who demand both results and transparency.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Competitive Moat Section -->
-    <section class="moat-section">
-        <div class="container">
-            <div class="moat-content glass-card">
-                <h2 class="moat-title">Our Moat Isn't Technology—It's Trust</h2>
-                <p class="moat-subtitle">Other health apps are data companies. We are a behavioral science company.</p>
-                
-                <p class="moat-intro">Our unfair advantage is a proprietary framework that integrates three crucial layers:</p>
-                
-                <div class="moat-layers">
-                    <div class="moat-layer">
-                        <div class="layer-icon">🔬</div>
-                        <div class="layer-content">
-                            <h4>Deep Data Synthesis</h4>
-                            <p>We analyze signals from all your wearables and data sources.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="moat-layer">
-                        <div class="layer-icon">🧬</div>
-                        <div class="layer-content">
-                            <h4>Behavioral Science Models</h4>
-                            <p>We apply proven principles of behavior change to craft recommendations you'll actually follow.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="moat-layer">
-                        <div class="layer-icon">🔮</div>
-                        <div class="layer-content">
-                            <h4>Explainable AI (XAI)</h4>
-                            <p>We provide the reasoning behind every insight, building a foundation of trust that no "black box" algorithm can replicate.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="moat-conclusion">
-                    <p>This creates a powerful feedback loop: the more you interact with VedaBeam, the smarter our engine becomes, and the more empowered you become. <strong>This is our defensible moat.</strong></p>
-                </div>
-            </div>
-        </div>
-    </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2025 VedaBeam. Transforming data into wisdom.</p>
-                <div class="footer-links">
-                    <a href="/privacy">Privacy</a>
-                    <a href="/terms">Terms</a>
-                    <a href="/contact">Contact</a>
+    <footer class="bg-gray-900 text-white">
+        <div class="container mx-auto px-6 py-12 text-center">
+            <div class="flex items-center justify-center space-x-3 mb-4">
+                <div class="logo-container">
+                    <img src="assets/vedabeam-logo-original.png" alt="VedaBeam Logo" class="vedabeam-logo">
                 </div>
+                <span class="text-2xl font-bold">VedaBeam</span>
             </div>
+            <p class="text-gray-400">&copy; 2025 VedaBeam. All rights reserved.</p>
+            <p class="text-gray-500 text-sm mt-2">Questions? Contact us at <a href="mailto:hello@vedabeam.com" class="underline hover:text-white">hello@vedabeam.com</a></p>
         </div>
     </footer>
 
