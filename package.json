@@ -1,0 +1,36 @@
+{
+  "name": "vedabeam-landing",
+  "version": "1.0.0",
+  "description": "VedaBeam - Ancient Wisdom Delivered with Modern Precision",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo 'Static site - no build needed'",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "health",
+    "ai",
+    "behavioral-intelligence",
+    "wellness",
+    "vedabeam"
+  ],
+  "author": "VedaBeam Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "compression": "^1.7.4",
+    "helmet": "^7.1.0",
+    "cors": "^2.8.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vedabeam/vedabeam-platform.git"
+  },
+  "homepage": "https://vedabeam.com"
+}
+
